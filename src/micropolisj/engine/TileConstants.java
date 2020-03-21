@@ -185,6 +185,7 @@ public class TileConstants
 
 	public static final char ALLBITS = 64512;   // mask for upper 6 bits
 	public static final char LOMASK = 1023; //mask for low 10 bits
+	private static final int Tree = 0;
 
 	private TileConstants() {}
 
@@ -382,7 +383,7 @@ public class TileConstants
 	{
 		assert (tile & LOMASK) == tile;
 
-		return tile >= FIRSTRIVEDGE && tile <= WOODS5;
+		return tile >= FIRSTRIVEDGE && tile <= LASTRIVEDGE;
 	}
 
 	public static boolean isDozeable(int tile)
@@ -396,8 +397,9 @@ public class TileConstants
 	static boolean isFloodable(int tile)
 	{
 		assert (tile & LOMASK) == tile;
+		assert (isRiverEdge(tile)) == true;
 
-		return (tile == DIRT || (isDozeable(tile) && isCombustible(tile)));
+		return (tile == DIRT)|| (isDozeable(tile) && isRiverEdge(tile));
 	}
 
 	/**
